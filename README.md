@@ -50,8 +50,6 @@ Learn core image processing techniques step-by-step. These tutorials help build 
 - 🧵 Line & Circle detection using Hough Transform
 - 🎯 Filtering specific colors in video frames
 
-📎 [See full tutorial list → OpenCV_Tutorial/README.md](./OpenCV_Tutorial/README.md)
-
 ---
 
 ## 🚀 OpenCV_Project
