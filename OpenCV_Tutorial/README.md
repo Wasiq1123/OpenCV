@@ -148,13 +148,6 @@ translated = cv2.warpAffine(image, M, (width, height))
 
 ---
 
-## ✍️ Author
-
-**Wasiq Saleem**
-Student at NUST (Pakistan) | Robotics + Computer Vision Researcher
-📍 Islamabad
-🛠️ Skills: OpenCV, ROS 2, Python, Image Processing, AI
-
 ---
 
 ## 🔗 Dependencies
@@ -188,3 +181,11 @@ This repository is shared for educational purposes. Free to use with proper attr
 © 2025 Wasiq Saleem
 
 ---
+## ✍️ Author
+
+**Wasiq Saleem**
+Student at NUST (Pakistan) | Robotics + Computer Vision Researcher
+
+📍 Islamabad
+
+🛠️ Skills: OpenCV, ROS 2, Python, Image Processing, AI
