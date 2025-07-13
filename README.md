@@ -14,39 +14,22 @@ This repository is organized into two main sections:
 
 OpenCV/
 ├── OpenCV_Tutorial/       # Step-by-step tutorials
-
-│   ├── OpenCV Basic\_Image\_Enhancement\_Operations.ipynb
-
+│   ├── OpenCV Basic\_Image\_Enhancement\_Operations.ipyn
 │   ├── OpenCV Canny Edge Detection.ipynb
-
 │   ├── OpenCV Filter Color in Video.ipynb
-
 │   ├── OpenCV Find Co-ordinates of Contours.ipynb
-
 │   ├── OpenCV Image Enhancement.ipynb
-
 │   ├── OpenCV Image Reading, Channel Modification, and Region Editing.ipynb
-
 │   ├── OpenCV Image Transformation.ipynb
-
 │   ├── OpenCV Line and Circle Detection.ipynb
-
 │   └── README.md
-
 │
-
 ├── OpenCV_Project/        # Real-world applications
-
 │   ├── OpenCV Face and Eye Recognition.ipynb
-
 │   ├── OpenCV Object Tracking.ipynb
-
 │   ├── OpenCV and MTCNN Face Recognition.ipynb
-
 │   └── README.md
-
 │
-
 └── README.md              # This file (Main Overview)
 
 ````
