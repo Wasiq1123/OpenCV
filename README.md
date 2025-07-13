@@ -1,20 +1,19 @@
-# 🧠 OpenCV_Projects
+# 🔍 OpenCV
 
-This repository contains a complete collection of **OpenCV-based projects and tutorials** for learning and implementing computer vision techniques in Python.
+Welcome to the **OpenCV** repository — a structured collection of hands-on notebooks to learn and apply computer vision using **Python + OpenCV**.
 
-Whether you're a beginner or intermediate learner, these notebooks will help you understand core image processing operations, facial recognition techniques, object tracking, and more — all powered by OpenCV and complementary libraries.
+This repository is organized into two main sections:
+- 📘 `OpenCV_Tutorial`: Foundational tutorials for image processing and enhancement.
+- 🚀 `OpenCV_Project`: Practical projects for face recognition, object tracking, and more.
 
 ---
 
-## 📁 Repository Structure
+## 📁 Folder Structure
 
 ```
 
-OpenCV\_Projects/
-├── OpenCV Face and Eye Recognition.ipynb
-├── OpenCV Object Tracking.ipynb
-├── OpenCV and MTCNN Face Recognition .ipynb
-├── OpenCV\_Tutorial/
+OpenCV/
+├── OpenCV\_Tutorial/       # Step-by-step tutorials
 │   ├── OpenCV Basic\_Image\_Enhancement\_Operations.ipynb
 │   ├── OpenCV Canny Edge Detection.ipynb
 │   ├── OpenCV Filter Color in Video.ipynb
@@ -24,90 +23,80 @@ OpenCV\_Projects/
 │   ├── OpenCV Image Transformation.ipynb
 │   ├── OpenCV Line and Circle Detection.ipynb
 │   └── README.md
-├── README.md  ← (This file)
+│
+├── OpenCV\_Project/        # Real-world applications
+│   ├── OpenCV Face and Eye Recognition.ipynb
+│   ├── OpenCV Object Tracking.ipynb
+│   ├── OpenCV and MTCNN Face Recognition.ipynb
+│   └── README.md
+│
+└── README.md              # This file (Main Overview)
 
 ````
 
 ---
 
-## 🔷 Main Projects
+## 📘 OpenCV_Tutorial
 
-### 📘 `OpenCV Face and Eye Recognition.ipynb`
-✅ Detects **faces and eyes** using Haar Cascade classifiers.
+Learn core image processing techniques step-by-step. These tutorials help build intuition and hands-on skills for:
 
-- Uses pre-trained Haar XML classifiers for detection.
-- Converts frames to grayscale for performance.
-- Highlights eyes and faces with bounding rectangles.
-- Can be extended to work with live webcam input.
+- 📥 Reading and writing images
+- 🎨 Color channel manipulation (RGB, HSV)
+- 🔄 Image transformations: translation, rotation, scaling, shearing
+- 🌈 Brightness and contrast enhancement
+- 🖼️ Region-of-interest (ROI) selection and editing
+- ✏️ Drawing shapes and text on images
+- 🧠 Canny Edge Detection
+- 🧵 Line & Circle detection using Hough Transform
+- 🎯 Filtering specific colors in video frames
 
----
-
-### 📘 `OpenCV and MTCNN Face Recognition.ipynb`
-✅ Performs **face detection and alignment** using **MTCNN**.
-
-- Uses **MTCNN (Multi-task Cascaded Convolutional Networks)** for more robust face detection than Haar cascades.
-- Detects face bounding boxes and landmarks (eyes, nose, mouth).
-- Suitable for further tasks like face recognition or verification.
-
-📌 Dependencies:
-- `facenet-pytorch` or `mtcnn` for face detection.
-- OpenCV for image handling and visualization.
+📎 [See full tutorial list → OpenCV_Tutorial/README.md](./OpenCV_Tutorial/README.md)
 
 ---
 
-### 📘 `OpenCV Object Tracking.ipynb`
-✅ Tracks moving objects using OpenCV’s tracking algorithms.
+## 🚀 OpenCV_Project
 
-- Allows selection of a region (ROI) in video frames.
-- Supports multiple trackers like KCF, CSRT, MOSSE.
-- Can run on video files or live webcam stream.
+This section contains complete applied projects demonstrating real-world applications of OpenCV, such as:
 
----
+| Notebook | Description |
+|----------|-------------|
+| 🧠 `OpenCV Face and Eye Recognition.ipynb` | Detects human faces and eyes using Haar cascades |
+| 🎯 `OpenCV Object Tracking.ipynb` | Tracks objects in video using OpenCV tracking APIs (KCF, CSRT, etc.) |
+| 🤖 `OpenCV and MTCNN Face Recognition.ipynb` | Uses MTCNN for robust face detection with facial landmarks |
 
-## 📚 OpenCV_Tutorial (Fundamentals)
-
-The `OpenCV_Tutorial/` folder contains step-by-step tutorials on the **core image processing techniques** used in OpenCV. Topics include:
-
-| Notebook Title | Key Topics |
-|----------------|------------|
-| **Image Reading, Channel Modification, and Region Editing** | Read, resize, split channels, pixel manipulation |
-| **Image Transformation** | Translate, rotate, shear, scale |
-| **Line and Circle Detection** | Canny edges, HoughLines, HoughCircles |
-| **Canny Edge Detection** | Grayscale conversion, edge detection |
-| **Find Co-ordinates of Contours** | Contour detection, area, centroids |
-| **Filter Color in Video** | Color masking using HSV space |
-| **Image Enhancement** | Brightness, contrast, histogram equalization |
-| **Basic Image Enhancement Operations** | Addition, subtraction, multiplication, blending |
-
-📌 A separate [`README.md`](./OpenCV_Tutorial/README.md) is included inside the folder to guide you through each tutorial.
+📎 [See project descriptions → OpenCV_Project/README.md](./OpenCV_Project/README.md)
 
 ---
 
-## 🚀 Getting Started
+## ⚙️ Setup & Installation
 
-### ✅ Requirements
-
-Install required libraries using:
+Make sure you have Python 3.x installed. Then install required libraries:
 
 ```bash
 pip install opencv-python numpy matplotlib
 ````
 
-For MTCNN-related notebooks:
+For advanced face detection with MTCNN:
 
 ```bash
 pip install facenet-pytorch
 ```
 
-### 💻 Run on Google Colab (Recommended)
-
-These notebooks are tested on **Google Colab** for free GPU/CPU support and easy visualization using `cv2_imshow`.
+> ✅ All notebooks are tested and runnable on Google Colab.
+> Use `cv2_imshow` (not `cv2.imshow`) for displaying images in Colab.
 
 ---
 
-## 📄 License
+## ✅ Highlights
 
-This repository is licensed for **educational and personal learning**.
-Feel free to use, modify, and build upon with attribution.
+* Modular & well-commented Jupyter notebooks
+* Easy-to-understand explanations for each image operation
+* Visual outputs for every processing step
+* MTCNN integration for deep face recognition
 
-© 2025 Wasiq Saleem
+---
+
+## 📜 License
+
+This repository is open-source and intended for **educational and research purposes**.
+You are free to modify, reuse, and share — **with attribution**.
