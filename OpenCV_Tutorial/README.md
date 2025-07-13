@@ -8,7 +8,7 @@ This repository contains a collection of Jupyter Notebooks to understand and imp
 
 ```
 
-OpenCV\_Tutorial/
+OpenCV_Tutorial/
 
 ├── OpenCV Basic\_Image\_Enhancement\_Operations.ipynb
 
