@@ -1,133 +1,190 @@
-## 🧠 OpenCV Tutorial – Image Processing & Computer Vision Essentials
+# 🧠 OpenCV_Tutorial
 
-This repository contains a series of hands-on projects and tutorials demonstrating **fundamental image processing techniques** using **OpenCV**. These notebooks are ideal for learning the basics of computer vision — including image enhancement, edge detection, geometric transformations, and object detection.
+This repository contains a collection of Jupyter Notebooks to understand and implement the fundamentals of image processing using **OpenCV in Python**. The focus is on both theoretical understanding and practical applications.
 
 ---
 
-## 📂 Project Structure
+## 📁 Directory Structure
 
 ```
-📁 OpenCV_Basics
-├── OpenCV Basic_Image_Enhancement_Operations.ipynb        # 🔧 Contrast, Brightness, Blurring
-├── OpenCV Canny Edge Detection.ipynb                      # ⚡ Canny edge detection on images
-├── OpenCV Filter Color in Video.ipynb                     # 🎥 Real-time color filtering in video
-├── OpenCV Find Co-ordinates of Contours .ipynb            # 🌀 Contour detection & coordinate extraction
-├── OpenCV Image Enhancement.ipynb                         # 🔬 Histogram Equalization, CLAHE
-├── OpenCV Image Reading, Channel Modification...ipynb     # 📸 Channel-wise operations & region masking
-├── OpenCV Image Transformation.ipynb                      # 🔄 Affine, rotation, translation, resizing
-├── OpenCV Line and Circle Detection.ipynb                 # 🎯 Hough Transform for line/circle detection
-├── README.md
-```
+
+OpenCV\_Tutorial/
+
+├── OpenCV Basic\_Image\_Enhancement\_Operations.ipynb
+
+├── OpenCV Canny Edge Detection.ipynb
+
+├── OpenCV Filter Color in Video.ipynb
+
+├── OpenCV Find Co-ordinates of Contours.ipynb
+
+├── OpenCV Image Enhancement.ipynb
+
+├── OpenCV Image Reading, Channel Modification, and Region Editing.ipynb
+
+├── OpenCV Image Transformation.ipynb
+
+├── OpenCV Line and Circle Detection.ipynb
+
+└── README.md
+
+````
 
 ---
 
-## 🔍 Notebook Overviews
+## 📌 Notebook Summaries
 
-### 📸 **OpenCV Image Reading, Channel Modification, and Region Editing**
+### 📘 `OpenCV Image Reading, Channel Modification, and Region Editing.ipynb`
 
-* Load, display, and modify RGB channels
-* Apply masking and ROI (Region of Interest)
-* Save processed images
+✅ **Covers:**
+- Loading image from a URL using `urllib`
+- Decoding image data to NumPy array with OpenCV
+- Resizing with `cv2.resize()`
+- Splitting image into RGB channels and modifying each
+- Increasing brightness and clipping pixel values
+- Changing pixel values in a specific region
+- Cropping and displaying image sub-regions
+- Adding brightness using numpy broadcasting
+- Checking max pixel intensity
 
----
-
-### 🎨 **OpenCV Basic Image Enhancement Operations**
-
-* Adjust brightness and contrast
-* Apply Gaussian and median blurs
-* Perform sharpening and smoothing
-
----
-
-### 🌈 **OpenCV Image Enhancement**
-
-* Histogram Equalization
-* CLAHE (Contrast Limited Adaptive Histogram Equalization)
-* Improves contrast and brightness adaptively
+🧪 **Functions & Methods Used:**
+```python
+cv2.imdecode(), cv2.resize(), cv2.split(), cv2.merge()
+np.clip(), np.add(), cv2.cvtColor(), cv2_imshow()
+````
 
 ---
 
-### 🧪 **OpenCV Canny Edge Detection**
+### 📘 `OpenCV Image Transformation.ipynb`
 
-* Detects sharp intensity changes using:
+✅ **Covers:**
 
-  * Gaussian blur
-  * Gradient thresholding
-* Ideal for edge-based segmentation
+* **Translation**: Moving image using a transformation matrix
+* **Rotation**: Rotating image about its center using `cv2.getRotationMatrix2D()`
+* **Shearing**: Applying shear along x and y axis with custom matrix
+* **Scaling**: Enlarging image using scaling factors
 
----
-
-### 🌀 **OpenCV Find Coordinates of Contours**
-
-* Detect shapes and extract contour points
-* Find area, perimeter, and bounding boxes
-* Useful for shape analysis and object localization
-
----
-
-### 🔄 **OpenCV Image Transformation**
-
-* Resize, scale, rotate, and translate images
-* Includes affine and perspective transformations
-* Core for geometric manipulation tasks
-
----
-
-### 🎯 **OpenCV Line and Circle Detection**
-
-* Uses Hough Line & Hough Circle Transforms
-* Visualizes shapes over real-world objects
-* Used in lane detection, object tracking
-
----
-
-### 🎥 **OpenCV Filter Color in Video**
-
-* Real-time object tracking using color masks
-* Track red, green, blue, or custom HSV ranges
-* Useful in gesture recognition, robotics vision
-
----
-
-## 💻 Requirements
-
-Install required libraries:
-
-```bash
-pip install opencv-python numpy matplotlib
-```
-
-Or in Google Colab:
+📌 Example:
 
 ```python
-!pip install opencv-python
-import cv2
-import numpy as np
-import matplotlib.pyplot as plt
+# Translation matrix
+M = np.array([[1, 0, tx], [0, 1, ty]], dtype=np.float32)
+translated = cv2.warpAffine(image, M, (width, height))
 ```
 
 ---
 
-## 🚀 Learning Outcomes
+### 📘 `OpenCV Line and Circle Detection.ipynb`
 
-✔️ Read, display, and modify images and video streams
+✅ **Covers:**
 
-✔️ Apply fundamental filters: blurring, sharpening, edge detection
+* **Canny Edge Detection** as preprocessing
+* **Hough Line Transform** to detect straight lines
+* **Hough Circle Transform** to detect circular shapes
+* Frame flipping for visualization
+* Drawing detected shapes using `cv2.line()` and `cv2.circle()`
 
-✔️ Perform color space filtering in video (HSV masking)
+📌 Concepts Explained:
 
-✔️ Transform images geometrically (rotate, resize, affine)
-
-✔️ Detect contours, lines, and circles
-
-✔️ Build a solid base for advanced computer vision tasks
+* Polar coordinate line representation (rho, theta)
+* Why large constants like ±1000 are used for drawing full lines
+* Accumulator resolution and thresholds in `cv2.HoughCircles()`
 
 ---
 
-## 🔗 Useful Resources
+### 📘 `OpenCV Canny Edge Detection.ipynb`
 
-* 📘 [OpenCV-Python Documentation](https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html)
-* 📺 [FreeCodeCamp OpenCV Tutorial](https://www.youtube.com/watch?v=oXlwWbU8l2o)
-* 🧠 [PyImageSearch](https://pyimagesearch.com/)
+✅ **Covers:**
+
+* Edge detection using `cv2.Canny()`
+* Adjusting thresholds for better edge quality
+* Displaying grayscale and edge images side-by-side
+
+---
+
+### 📘 `OpenCV Filter Color in Video.ipynb`
+
+✅ **Covers:**
+
+* Capturing video stream
+* Filtering specific color ranges using HSV masking
+* Drawing contours on color-filtered objects
+* Real-time visualization with OpenCV
+
+---
+
+### 📘 `OpenCV Find Co-ordinates of Contours.ipynb`
+
+✅ **Covers:**
+
+* Converting image to binary
+* Detecting object boundaries using `cv2.findContours()`
+* Drawing and labeling contours
+* Getting exact (x, y) coordinates of each contour point
+
+---
+
+### 📘 `OpenCV Image Enhancement.ipynb`
+
+✅ **Covers:**
+
+* Brightness and contrast manipulation
+* Histogram equalization for grayscale and color images
+* Using CLAHE (Contrast Limited Adaptive Histogram Equalization)
+
+---
+
+### 📘 `OpenCV Basic_Image_Enhancement_Operations.ipynb`
+
+✅ **Covers:**
+
+* Basic operations like:
+
+  * Pixel-wise addition
+  * Subtraction
+  * Multiplication
+  * Logical operations on masks
+* Image blending and arithmetic
+
+---
+
+## ✍️ Author
+
+**Wasiq Saleem**
+Student at NUST (Pakistan) | Robotics + Computer Vision Researcher
+📍 Islamabad
+🛠️ Skills: OpenCV, ROS 2, Python, Image Processing, AI
+
+---
+
+## 🔗 Dependencies
+
+All notebooks require:
+
+* Python 3.x
+* OpenCV (`cv2`)
+* NumPy
+* Google Colab for `cv2_imshow()`
+
+To install locally:
+
+```bash
+pip install opencv-python numpy
+```
+
+---
+
+## 🚀 Run This Notebook on Colab
+
+Click the badge below to launch the notebooks directly in Google Colab:
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/)
+
+---
+
+## 📌 License
+
+This repository is shared for educational purposes. Free to use with proper attribution.
+© 2025 Wasiq Saleem
 
 ---
