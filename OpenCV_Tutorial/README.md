@@ -1,184 +1,77 @@
-# 🧠 OpenCV_Tutorial
+# OpenCV Tutorial — Image Processing Fundamentals
 
-This repository contains a collection of Jupyter Notebooks to understand and implement the fundamentals of image processing using **OpenCV in Python**. The focus is on both theoretical understanding and practical applications.
+Eight notebooks covering the building blocks of classical image processing: reading and manipulating images, geometric transforms, enhancement, edge/line/circle detection, color filtering, and contour extraction.
 
----
+## Notebooks
 
-## 📁 Directory Structure
-
-```
-
-OpenCV_Tutorial/
-
-├── OpenCV Basic\_Image\_Enhancement\_Operations.ipynb
-
-├── OpenCV Canny Edge Detection.ipynb
-
-├── OpenCV Filter Color in Video.ipynb
-
-├── OpenCV Find Co-ordinates of Contours.ipynb
-
-├── OpenCV Image Enhancement.ipynb
-
-├── OpenCV Image Reading, Channel Modification, and Region Editing.ipynb
-
-├── OpenCV Image Transformation.ipynb
-
-├── OpenCV Line and Circle Detection.ipynb
-
-└── README.md
-
-````
+| Notebook | Core operations |
+|---|---|
+| `OpenCV Image Reading, Channel Modification, and Region Editing.ipynb` | Loading images from a URL, channel split/merge, ROI editing, brightness clipping |
+| `OpenCV Image Transformation.ipynb` | Affine transforms via `cv2.warpAffine` — translation, rotation, shear, scaling |
+| `OpenCV Basic_Image_Enhancement_Operations.ipynb` | Pixel-wise arithmetic, thresholding, bitwise operations |
+| `OpenCV Image Enhancement.ipynb` | Brightness/contrast adjustment via pixel-wise add/multiply |
+| `OpenCV Canny Edge Detection.ipynb` | `cv2.Canny` edge detection on video |
+| `OpenCV Line and Circle Detection.ipynb` | Hough Line and Hough Circle transforms |
+| `OpenCV Filter Color in Video.ipynb` | HSV color-range masking on live video |
+| `OpenCV Find Co-ordinates of Contours.ipynb` | `cv2.findContours`, contour approximation and coordinate labeling |
 
 ---
 
-## 📌 Notebook Summaries
+## Image Reading, Channel Modification, and Region Editing
 
-### 📘 `OpenCV Image Reading, Channel Modification, and Region Editing.ipynb`
+- Downloads an image directly from a URL (`urllib.request`), decodes it with `cv2.imdecode`, and resizes it with `cv2.resize`
+- Splits the image into individual channels with `cv2.split`, brightens each channel independently, then recombines them with `cv2.merge`
+- Edits a specific rectangular region of the image directly through NumPy slicing, and crops a sub-region for display
+- Confirms pixel values stay within the valid `0–255` range using `np.clip`
 
-✅ **Covers:**
-- Loading image from a URL using `urllib`
-- Decoding image data to NumPy array with OpenCV
-- Resizing with `cv2.resize()`
-- Splitting image into RGB channels and modifying each
-- Increasing brightness and clipping pixel values
-- Changing pixel values in a specific region
-- Cropping and displaying image sub-regions
-- Adding brightness using numpy broadcasting
-- Checking max pixel intensity
+**Example:** a `1080×810×3` source image is resized to `400×400` before channel-level editing.
 
-🧪 **Functions & Methods Used:**
-```python
-cv2.imdecode(), cv2.resize(), cv2.split(), cv2.merge()
-np.clip(), np.add(), cv2.cvtColor(), cv2_imshow()
-````
+## Image Transformation
 
----
+Four affine transforms are applied to the same resized image using `cv2.warpAffine`:
 
-### 📘 `OpenCV Image Transformation.ipynb`
+| Transform | Parameters used |
+|---|---|
+| Translation | `tx = 50`, `ty = 50` |
+| Rotation | 20°, scale factor 1, about the image center, via `cv2.getRotationMatrix2D` |
+| Shear | shear factors `-0.15` (x) and `0.15` (y) |
+| Scaling | 2× in both axes, with the output canvas enlarged to `800×800` |
 
-✅ **Covers:**
+## Basic Image Enhancement Operations
 
-* **Translation**: Moving image using a transformation matrix
-* **Rotation**: Rotating image about its center using `cv2.getRotationMatrix2D()`
-* **Shearing**: Applying shear along x and y axis with custom matrix
-* **Scaling**: Enlarging image using scaling factors
+- Brightness adjustment via `np.add`/`np.subtract` with a constant offset, and contrast adjustment via `np.multiply` with scaling factors of `0.8`/`1.2`
+- Simple thresholding (`cv2.threshold`, binary-inverse) and adaptive thresholding (`cv2.adaptiveThreshold`, Gaussian-weighted)
+- Bitwise `AND`/`OR` operations between two different images (both resized to `400×400`) to illustrate mask-based compositing
 
-📌 Example:
+## Image Enhancement
 
-```python
-# Translation matrix
-M = np.array([[1, 0, tx], [0, 1, ty]], dtype=np.float32)
-translated = cv2.warpAffine(image, M, (width, height))
-```
+- Downloads a sample image bundle from a hosted zip archive and loads a `600×840×3` test image
+- Demonstrates brightness changes with `cv2.add`/`cv2.subtract` against a constant-value image
+- Demonstrates contrast changes with `cv2.multiply`, using factors of `1.2` (increase) and `0.8` (decrease)
 
----
+## Canny Edge Detection
 
-### 📘 `OpenCV Line and Circle Detection.ipynb`
+- Applies Gaussian blur, then `cv2.Canny` with thresholds `75`/`150`, frame by frame on a video, to extract edges in real time
 
-✅ **Covers:**
+## Line and Circle Detection
 
-* **Canny Edge Detection** as preprocessing
-* **Hough Line Transform** to detect straight lines
-* **Hough Circle Transform** to detect circular shapes
-* Frame flipping for visualization
-* Drawing detected shapes using `cv2.line()` and `cv2.circle()`
+- **Line detection:** Canny edges (thresholds `100`/`200`) feed into `cv2.HoughLines` (`threshold=150`); detected lines are converted from polar (`rho`, `theta`) to two endpoints and drawn with `cv2.line`
+- **Circle detection:** Gaussian-blurred frames feed into `cv2.HoughCircles` (`cv2.HOUGH_GRADIENT`, `param1=50`, `param2=30`), with detected circles drawn using `cv2.circle`
 
-📌 Concepts Explained:
+## Filter Color in Video
 
-* Polar coordinate line representation (rho, theta)
-* Why large constants like ±1000 are used for drawing full lines
-* Accumulator resolution and thresholds in `cv2.HoughCircles()`
+- Converts each video frame to HSV and applies `cv2.inRange` with a custom lower/upper HSV bound to isolate a specific color range
+- Uses `cv2.bitwise_and` with the resulting mask to keep only the matching pixels, displayed in real time
 
----
+## Find Co-ordinates of Contours
 
-### 📘 `OpenCV Canny Edge Detection.ipynb`
+- Thresholds each frame (`cv2.threshold`, value `110`) and extracts contours with `cv2.findContours` (`RETR_TREE`, `CHAIN_APPROX_SIMPLE`)
+- Simplifies each contour's shape with `cv2.approxPolyDP` and labels every vertex with its `(x, y)` pixel coordinates directly on the frame
 
-✅ **Covers:**
-
-* Edge detection using `cv2.Canny()`
-* Adjusting thresholds for better edge quality
-* Displaying grayscale and edge images side-by-side
-
----
-
-### 📘 `OpenCV Filter Color in Video.ipynb`
-
-✅ **Covers:**
-
-* Capturing video stream
-* Filtering specific color ranges using HSV masking
-* Drawing contours on color-filtered objects
-* Real-time visualization with OpenCV
-
----
-
-### 📘 `OpenCV Find Co-ordinates of Contours.ipynb`
-
-✅ **Covers:**
-
-* Converting image to binary
-* Detecting object boundaries using `cv2.findContours()`
-* Drawing and labeling contours
-* Getting exact (x, y) coordinates of each contour point
-
----
-
-### 📘 `OpenCV Image Enhancement.ipynb`
-
-✅ **Covers:**
-
-* Brightness and contrast manipulation
-* Histogram equalization for grayscale and color images
-* Using CLAHE (Contrast Limited Adaptive Histogram Equalization)
-
----
-
-### 📘 `OpenCV Basic_Image_Enhancement_Operations.ipynb`
-
-✅ **Covers:**
-
-* Basic operations like:
-
-  * Pixel-wise addition
-  * Subtraction
-  * Multiplication
-  * Logical operations on masks
-* Image blending and arithmetic
-
----
-
----
-
-## 🔗 Dependencies
-
-All notebooks require:
-
-* Python 3.x
-* OpenCV (`cv2`)
-* NumPy
-* Google Colab for `cv2_imshow()`
-
-To install locally:
+## Requirements
 
 ```bash
 pip install opencv-python numpy
 ```
 
----
-
-## 🚀 Run This Notebook on Colab
-
-Click the badge below to launch the notebooks directly in Google Colab:
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/)
-
----
-
-## 📌 License
-
-This repository is shared for educational purposes. Free to use with proper attribution.
-© 2025 Wasiq Saleem
-
----
-
+All notebooks are written for Google Colab and use `cv2_imshow()` in place of `cv2.imshow()`.
