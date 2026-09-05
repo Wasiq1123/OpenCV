@@ -1,81 +1,62 @@
-# Applied Computer Vision with OpenCV: Fundamentals, Face Detection, and Tracking
+# OpenCV Computer Vision Fundamentals
 
-A structured set of Python/OpenCV notebooks covering classical image processing fundamentals and three face detection/tracking pipelines (Haar Cascade, CSRT, MTCNN), including a side-by-side comparison of detection methods.
+![Python](https://img.shields.io/badge/Python-3.8+-blue)
+![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?logo=opencv&logoColor=white)
+![Colab](https://img.shields.io/badge/Google%20Colab-F9AB00?logo=googlecolab&logoColor=white)
 
-This repository documents foundational computer vision work: understanding of core image processing operations and practical application of classical and deep-learning-based face detection/tracking methods.
+A structured set of Python/OpenCV notebooks covering classical image processing fundamentals, plus three real-time face detection/tracking pipelines (Haar Cascade, CSRT, MTCNN) with a side-by-side comparison of the three approaches.
 
-## Scope
+## Contents
 
-| In this repo |
-|---|
-| Classical image processing (transformations, filtering, edge/contour/line detection, histogram methods) |
-| Application of pretrained/classical detectors (Haar Cascade, MTCNN) and a built-in tracker (CSRT) |
-| Qualitative comparison of three face detection/tracking approaches |
-| Google Colab notebooks, runnable end-to-end |
+- [Repository Structure](#repository-structure)
+- [What This Repository Covers](#what-this-repository-covers)
+- [Tools & Frameworks](#tools--frameworks)
+- [How the Projects Were Built](#how-the-projects-were-built)
 
 ## Repository Structure
 
 ```
-OpenCV/
-├── OpenCV_Tutorial/        Image processing fundamentals
+opencv-cv-fundamentals/
+│
+├── OpenCV_Tutorial/        # Image processing fundamentals
 │   ├── Image reading, channel modification, region editing
 │   ├── Image transformation (translation, rotation, shear, scaling)
-│   ├── Basic image enhancement operations (arithmetic, masking)
-│   ├── Image enhancement (brightness/contrast, histogram equalization, CLAHE)
+│   ├── Basic image enhancement operations (arithmetic, thresholding, bitwise ops)
+│   ├── Image enhancement (brightness/contrast)
 │   ├── Canny edge detection
 │   ├── Line and circle detection (Hough transform)
-│   └── Color filtering in video (HSV masking)
+│   ├── Color filtering in video (HSV masking)
+│   └── Contour detection & coordinate extraction
 │
-├── OpenCV_Projects/        Applied face detection/tracking pipelines
+├── OpenCV_Projects/         # Applied face detection/tracking pipelines
 │   ├── Face and eye detection (Haar Cascade)
-│   ├── Object/face tracking (CSRT)
-│   └── Face detection with MTCNN
+│   ├── Face tracking (CSRT)
+│   └── Face detection (MTCNN)
 │
 └── README.md
 ```
 
-## Tutorial Notebooks
+Each folder has its own README with notebook-by-notebook details:
 
-| Notebook | Core operations |
+| Folder | Focus |
 |---|---|
-| Image Reading, Channel Modification, and Region Editing | `cv2.imdecode`, `cv2.resize`, channel split/merge, ROI editing, brightness clipping |
-| Image Transformation | Affine transforms via `cv2.warpAffine` — translation, rotation, shear, scaling |
-| Basic Image Enhancement Operations | Pixel-wise arithmetic, masking, image blending |
-| Image Enhancement | Brightness/contrast adjustment, histogram equalization, CLAHE |
-| Canny Edge Detection | `cv2.Canny`, threshold tuning |
-| Line and Circle Detection | Hough Line and Hough Circle transforms |
-| Filter Color in Video | HSV color-range masking, contour drawing on filtered regions |
-| Find Co-ordinates of Contours | `cv2.findContours`, contour labeling and coordinate extraction |
+| [OpenCV_Tutorial](OpenCV_Tutorial/README.md) | Classical image processing fundamentals |
+| [OpenCV_Projects](OpenCV_Projects/README.md) | Face detection & tracking pipelines |
 
-## Face Detection and Tracking Pipelines
+## What This Repository Covers
 
-Three approaches to face detection/tracking are implemented and compared directly:
+- **Image Processing Fundamentals** — pixel-level operations (arithmetic, masking, bitwise logic), geometric transforms (translation, rotation, shear, scaling), thresholding (simple and adaptive), histogram-based enhancement, edge detection, Hough-based line/circle detection, HSV color filtering, and contour extraction.
+- **Face Detection & Tracking** — three distinct approaches to finding and following a face across video frames: a classical feature-based detector (Haar Cascade), a detector-initialized tracker (CSRT), and a deep-learning-based detector (MTCNN) — implemented separately and compared directly.
 
-| Method | Type | Real-time performance | Robust to angle/lighting | Eye detection |
-|---|---|---|---|---|
-| Haar Cascade | Classical, feature-based | Fast | No | Yes (built-in) |
-| CSRT Tracker | Detection + tracking (Haar init) | Real-time capable | Limited | No |
-| MTCNN | Deep learning (CNN cascade) | Slower | Yes | No (face only) |
+## Tools & Frameworks
 
-- **Haar Cascade** uses `cv2.CascadeClassifier` with pretrained XML models for frontal face and eye detection.
-- **CSRT** initializes on a Haar-detected face, then uses `cv2.TrackerCSRT_create()` to maintain tracking across frames without re-running detection each frame.
-- **MTCNN** applies a pretrained multi-task cascaded CNN for detection that is more robust to scale, angle, and lighting variation than Haar-based methods.
+| Category | Tools |
+|---|---|
+| Core Library | OpenCV (`cv2`) |
+| Supporting Libraries | NumPy, Matplotlib, `urllib` |
+| Deep Learning Detector | MTCNN (Multi-task Cascaded CNN) |
+| Environment | Google Colab, using `cv2_imshow` in place of `cv2.imshow` |
 
-## Setup
+## How the Projects Were Built
 
-```bash
-pip install opencv-python numpy matplotlib mtcnn
-```
-
-Haar cascade XML files are pulled directly from the OpenCV repository:
-```bash
-wget https://github.com/opencv/opencv/raw/master/data/haarcascades/haarcascade_frontalface_default.xml
-wget https://github.com/opencv/opencv/raw/master/data/haarcascades/haarcascade_eye.xml
-```
-
-All notebooks are written for Google Colab and use `cv2_imshow` in place of `cv2.imshow`.
-
-## License
-
-Shared for educational and research purposes. Free to use and modify with attribution.
-© 2025 Muhammad Wasiq Saleem
+The tutorial notebooks each isolate a single image-processing concept — reading in an image or video, applying one or two specific OpenCV operations, and displaying the result — so each technique can be understood on its own. The project notebooks follow a consistent pipeline: read a video frame by frame, run a detector (or a detector + tracker), draw the results, and display the annotated frame in real time.
