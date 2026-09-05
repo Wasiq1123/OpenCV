@@ -1,130 +1,55 @@
-## 🧠 Real-Time Face Detection & Tracking with OpenCV, Haar Cascades, CSRT, and MTCNN
+# OpenCV Projects — Face Detection & Tracking
 
-This repository contains multiple practical implementations of **real-time face detection and tracking** techniques using OpenCV and deep learning-based MTCNN in Google Colab. It covers various stages of face detection pipelines such as:
+Three real-time face detection/tracking pipelines applied to video: a classical feature-based detector, a detector-initialized tracker, and a deep-learning-based detector — implemented separately so their behavior can be compared directly.
 
-* Frame extraction and transformation
-* Face and eye detection with Haar Cascades
-* Real-time object tracking using CSRT
-* Face detection using MTCNN (Multi-task Cascaded Convolutional Neural Network)
+## Notebooks
 
----
-
-## 📁 Project Structure
-
-```
-📁 Face_Detection_Tracking
-
-├── HaarCascade_Face_Eye_Detection.ipynb       # Face & eye detection using Haar cascades
-
-├── Face_Tracking_with_CSRT.ipynb              # Tracking faces with OpenCV CSRT tracker
-
-├── MTCNN_Face_Detection.ipynb                 # Deep learning-based face detection with MTCNN
-
-├── haarcascade_frontalface_default.xml        # XML file for frontal face detection
-
-├── haarcascade_eye.xml                        # XML file for eye detection
-
-└── README.md
-```
+| Notebook | Method | Type |
+|---|---|---|
+| `OpenCV Face and Eye Recognition.ipynb` | Haar Cascade | Classical, feature-based detection |
+| `OpenCV Object Tracking.ipynb` | Haar Cascade + CSRT | Detection-initialized tracking |
+| `OpenCV and MTCNN Face Recognition.ipynb` | MTCNN | Deep-learning-based detection |
 
 ---
 
-## 🔍 Implementation Overview
+## Face and Eye Detection (Haar Cascade)
 
-### ✅ 1. **Face and Eye Detection using Haar Cascades**
+- Uses `cv2.CascadeClassifier` with the pretrained `haarcascade_frontalface_default.xml` and `haarcascade_eye.xml` models
+- For every video frame: detects faces on the grayscale frame with `detectMultiScale` (`scaleFactor=1.1`, `minNeighbors=5`, `minSize=(30,30)`), then searches for eyes within each detected face's region of interest
+- Draws face boxes in blue and eye boxes in green
 
-* Uses OpenCV’s `CascadeClassifier` to detect:
+## Object Tracking (CSRT)
 
-  * Faces using `haarcascade_frontalface_default.xml`
-  * Eyes using `haarcascade_eye.xml`
+- Detects an initial face with the same Haar Cascade classifier
+- On first detection, initializes `cv2.TrackerCSRT_create()` on the detected face region
+- On every subsequent frame, updates the tracker directly (`tracker.update(frame)`) instead of re-running detection — maintaining a bounding box even as the face moves
+- If tracking fails, the tracker is reset to `None` so detection runs again on the next frame
 
-* Real-time bounding boxes:
+## Face Detection (MTCNN)
 
-  * Blue for faces
-  * Green for eyes
+- Uses the `MTCNN` Python package (`from mtcnn import MTCNN`) to detect faces directly, without Haar features
+- For every video frame: runs `detector.detect_faces(frame)` and draws a bounding box for each detected face
 
-📌 Ideal for lightweight face detection where speed is important.
+## Comparison of Techniques
 
----
+| Feature | Haar Cascade | CSRT Tracker | MTCNN |
+|---|---|---|---|
+| Detection method | Feature-based | Tracker after initial detection | Deep CNN-based |
+| Real-time performance | Fast | Real-time capable | Slower |
+| Robust to angle & lighting | No | Limited | Yes |
+| Eye detection support | Yes (built-in) | No | No (face only) |
 
-### ✅ 2. **Face Tracking with CSRT Tracker**
-
-* Initially detects the face using Haar Cascade.
-* Initializes a `cv2.TrackerCSRT_create()` object to follow the face across frames.
-* Updates position even if face detection fails after first frame.
-
-📌 Great for **persistent tracking** in real-time video streams even when the face moves or is momentarily occluded.
-
----
-
-### ✅ 3. **Face Detection with MTCNN**
-
-* Implements face detection using the deep learning-based **MTCNN** (Multi-task Cascaded Convolutional Neural Networks).
-* Uses the `MTCNN` Python package.
-* Detects faces directly without requiring Haar features.
-
-📌 More robust to scale, lighting, and angle variations than traditional methods.
-
----
-
-## 🧪 Comparison of Techniques
-
-| Feature                    | Haar Cascade    | CSRT Tracker          | MTCNN                   |
-| -------------------------- | --------------- | --------------------- | ----------------------- |
-| Detection Method           | Feature-based   | Tracker after initial | Deep CNN-based          |
-| Real-Time Performance      | ✅ Fast          | ✅ Real-time capable   | ⚠️ Slightly slower      |
-| Robust to Angle & Lighting | ❌ No            | ❌ Limited             | ✅ Yes                   |
-| Eye Detection Support      | ✅ Built-in      | ❌ No                  | ✅ Face only (no eye)    |
-| Use Case                   | Basic Detection | Object Tracking       | Advanced Face Detection |
-
----
-
-## 💻 Setup Instructions
-
-### ✅ In Google Colab
-
-```python
-from google.colab import drive
-drive.mount('/content/drive')
-```
-
-### ✅ Install Dependencies
+## Requirements
 
 ```bash
-!pip install mtcnn opencv-python
+pip install opencv-python mtcnn
 ```
 
-### ✅ Download Haar Cascades
+Haar cascade XML files are pulled directly from the OpenCV repository:
 
 ```bash
-!wget https://github.com/opencv/opencv/raw/master/data/haarcascades/haarcascade_frontalface_default.xml
-
-!wget https://github.com/opencv/opencv/raw/master/data/haarcascades/haarcascade_eye.xml
+wget https://github.com/opencv/opencv/raw/master/data/haarcascades/haarcascade_frontalface_default.xml
+wget https://github.com/opencv/opencv/raw/master/data/haarcascades/haarcascade_eye.xml
 ```
 
----
-
-## 🎯 Real-World Applications
-
-✔️ Security surveillance with live video feeds
-
-✔️ Real-time face tracking in robotic vision systems
-
-✔️ Attendance systems using webcams
-
-✔️ Human-computer interaction & gaze tracking
-
-✔️ Video analytics for sports, events, or retail
-
----
-
-## 📌 Key Learning Highlights
-
-* 🎥 Read and process frames from video files or webcams
-* 🔄 Flip, convert color spaces, and extract grayscale
-* 👀 Detect multiple facial landmarks and ROIs
-* 🎯 Use trackers to follow moving faces over time
-* 🧠 Understand the difference between classical and deep learning-based detection
-
----
-
+All notebooks are written for Google Colab and use `cv2_imshow()` in place of `cv2.imshow()`.
